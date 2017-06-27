@@ -1,0 +1,17 @@
+---
+centos_base_baseurl:              file:///vagrant/repo/base/
+centos_updates_baseurl:           file:///vagrant/repo/updates/
+centos_extras_baseurl:            file:///vagrant/repo/extras/
+centos_centosplus_baseurl:        file:///vagrant/repo/centosplus/
+centos_cr_baseurl:                http://sumberterbuka.beritagar.id/centos/$releasever/cr/$basearch/
+centos_fasttrack_baseurl:         http://sumberterbuka.beritagar.id/centos/$releasever/fasttrack/$basearch/
+
+epel_baseurl: file:///vagrant/repo/epel/
+
+remi_baseurl:         file:///vagrant/repo/remi/
+remi_safe_baseurl:    file:///vagrant/repo/remi-safe/
+remi_php54_baseurl:   http://rpms.remirepo.net/enterprise/7/php54/$basearch/
+remi_php55_baseurl:   http://rpms.remirepo.net/enterprise/7/php55/$basearch/
+remi_php56_baseurl:   http://rpms.remirepo.net/enterprise/7/php56/$basearch/
+remi_php70_baseurl:   http://rpms.remirepo.net/enterprise/7/php70/$basearch/
+remi_php71_baseurl:   file:///vagrant/repo/remi-php71/

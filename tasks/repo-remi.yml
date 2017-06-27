@@ -1,0 +1,20 @@
+---
+- name: configure REMI yum repository
+  yum_repository:
+    name: "{{ item.name.lower() }}"
+    description: "Remi's RPM repository for Enterprise Linux 7 - $basearch - {{ item.name }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgkey: "{{ remi_gpgkey }}"
+    gpgcheck: yes
+    enabled: "{{ item.enabled }}"
+    file: "{{ item.file }}"
+    state: present
+  become: True
+  with_items:
+    - { name: REMI          ,file: remi         ,enabled: "{{ remi_enabled }}"        ,baseurl: "{{ remi_baseurl }}" }
+    - { name: REMI-safe     ,file: remi-safe    ,enabled: "{{ remi_safe_enabled }}"   ,baseurl: "{{ remi_safe_baseurl }}" }
+    - { name: REMI-PHP54    ,file: remi-php54   ,enabled: "{{ remi_php54_enabled }}"  ,baseurl: "{{ remi_php54_baseurl }}" }
+    - { name: REMI-PHP55    ,file: remi         ,enabled: "{{ remi_php55_enabled }}"  ,baseurl: "{{ remi_php55_baseurl }}" }
+    - { name: REMI-PHP56    ,file: remi         ,enabled: "{{ remi_php56_enabled }}"  ,baseurl: "{{ remi_php56_baseurl }}" }
+    - { name: REMI-PHP70    ,file: remi-php70   ,enabled: "{{ remi_php70_enabled }}"  ,baseurl: "{{ remi_php70_baseurl }}" }
+    - { name: REMI-PHP71    ,file: remi-php71   ,enabled: "{{ remi_php71_enabled }}"  ,baseurl: "{{ remi_php71_baseurl }}" }

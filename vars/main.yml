@@ -1,2 +1,5 @@
 ---
 # vars file for adipriyantobpn.common
+centos_gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-$releasever
+epel_gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+remi_gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi

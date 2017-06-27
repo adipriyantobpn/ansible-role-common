@@ -4,3 +4,25 @@ disable_firewall: False
 disable_selinux: False
 git_username: "{{ ansible_user_id }}"
 git_email: "{{ ansible_user_id }}@{{ ansible_hostname }}"
+basic_packages:
+  - vim
+  - tree
+
+repo_location: indonesia
+
+centos_base_enabled:        yes
+centos_updates_enabled:     yes
+centos_extras_enabled:      yes
+centos_centosplus_enabled:  yes
+centos_cr_enabled:          no
+centos_fasttrack_enabled:   no
+
+epel_enabled:               yes
+
+remi_enabled:               no
+remi_safe_enabled:          yes
+remi_php54_enabled:         no
+remi_php55_enabled:         no
+remi_php56_enabled:         no
+remi_php70_enabled:         no
+remi_php71_enabled:         yes

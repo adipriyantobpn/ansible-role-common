@@ -1,0 +1,17 @@
+---
+centos_base_baseurl:              http://sumberterbuka.beritagar.id/centos/$releasever/os/$basearch/
+centos_updates_baseurl:           http://sumberterbuka.beritagar.id/centos/$releasever/updates/$basearch/
+centos_extras_baseurl:            http://sumberterbuka.beritagar.id/centos/$releasever/extras/$basearch/
+centos_centosplus_baseurl:        http://sumberterbuka.beritagar.id/centos/$releasever/centosplus/$basearch/
+centos_cr_baseurl:                http://sumberterbuka.beritagar.id/centos/$releasever/cr/$basearch/
+centos_fasttrack_baseurl:         http://sumberterbuka.beritagar.id/centos/$releasever/fasttrack/$basearch/
+
+epel_baseurl: http://integrator.kamadjaja.com/repo/epel/
+
+remi_baseurl:         http://rpms.remirepo.net/enterprise/7/remi/$basearch/
+remi_safe_baseurl:    http://rpms.remirepo.net/enterprise/7/safe/$basearch/
+remi_php54_baseurl:   http://rpms.remirepo.net/enterprise/7/php54/$basearch/
+remi_php55_baseurl:   http://rpms.remirepo.net/enterprise/7/php55/$basearch/
+remi_php56_baseurl:   http://rpms.remirepo.net/enterprise/7/php56/$basearch/
+remi_php70_baseurl:   http://rpms.remirepo.net/enterprise/7/php70/$basearch/
+remi_php71_baseurl:   http://rpms.remirepo.net/enterprise/7/php71/$basearch/
