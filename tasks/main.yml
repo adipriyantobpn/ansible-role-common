@@ -1,2 +1,23 @@
 ---
 # tasks file for adipriyantobpn.common
+- block:
+  - name: Make sure cronie is installed as it is required by timezone module
+    yum: name=cronie state=present
+  - name: Configure timezone setting
+    timezone: name=Asia/Jakarta
+    notify: restart crond
+  - name: Configure Firewall
+    service: name=firewalld state=stopped enabled=no
+    when: disable_firewall == true
+  - name: Make sure libselinux-python is installed as it is required by selinux module
+    yum: name=libselinux-python state=present
+  - name: Disable SELinux
+    selinux: state=disabled
+    when: disable_selinux == true
+  - name: Start VirtualBox Guest Additions service
+    service: name=vboxadd-service state=started enabled=yes
+    when: ansible_virtualization_type == "virtualbox"
+  become: True
+  become_user: root
+
+- include: git.yml

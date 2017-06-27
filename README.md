@@ -1,31 +1,46 @@
-Role Name
+Ansible Role: Common
 =========
 
-A brief description of the role goes here.
+An Ansible Role that provides common tasks for preparing RHEL/CentOS 7 servers
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This role needs no special requirements.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Available variables are listed below, along with default values (see `defaults/main.yml`):
+
+    disable_firewall: False
+    disable_selinux: False
+    git_username: "{{ ansible_user_id }}"
+    git_email: "{{ ansible_user_id }}@{{ ansible_hostname }}"
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+As EPEL and REMI repository is commonly used by many RHEL/CentOS, this role requires :
+  - [geerlingguy.repo-epel](https://galaxy.ansible.com/geerlingguy/repo-epel/)
+  - [geerlingguy.repo-remi](https://galaxy.ansible.com/geerlingguy/repo-remi/)
+
+Those required roles maintain their own role variables. Please read their documentations for more detailed explanations of how to use and supported role variables.
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - name: Prepare CentOS 7 server
+      hosts:  centos7
       roles:
-         - { role: username.rolename, x: 42 }
+        - role: adipriyantobpn.common
+          disable_firewall: True
+          disable_selinux: True
+          git_username: "Adi Priyanto"
+          git_email: "adipriyanto.bpn@gmail.com"
+
 
 License
 -------
@@ -35,4 +50,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+This role was created in 2017 by [Adi Priyanto](https://github.com/adipriyantobpn) as a learning purpose for community.

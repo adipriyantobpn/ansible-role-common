@@ -1,2 +1,6 @@
 ---
 # defaults file for adipriyantobpn.common
+disable_firewall: False
+disable_selinux: False
+git_username: "{{ ansible_user_id }}"
+git_email: "{{ ansible_user_id }}@{{ ansible_hostname }}"

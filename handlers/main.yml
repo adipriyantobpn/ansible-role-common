@@ -1,2 +1,7 @@
 ---
 # handlers file for adipriyantobpn.common
+- name: restart crond
+  become: True
+  service:
+    name: crond
+    state: restarted

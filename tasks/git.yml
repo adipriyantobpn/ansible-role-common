@@ -1,0 +1,30 @@
+---
+- block:
+  - name: Make sure git is installed as it is required by git_config module
+    yum: name=git state=present
+
+  - name: Configure system git core - EOL
+    git_config: name=core.eol value=lf scope=system
+  - name: Configure system git core - symlinks
+    git_config: name=core.symlinks value=true scope=system
+  - name: Configure system git core - autocrlf
+    git_config: name=core.autocrlf value=input scope=system
+  - name: Configure system git core - editor
+    git_config: name=core.editor value=vim scope=system
+  - name: Configure system git core - whitespace
+    git_config: name=core.whitespace value=blank-at-eol,blank-at-eof,space-before-tab,-indent-with-non-tab,-tab-in-indent,-cr-at-eol scope=system
+  - name: Configure system git color - UI
+    git_config: name=color.ui value=auto scope=system
+  - name: Configure system git credential helper
+    git_config: name=credential.helper value=store scope=system
+  - name: Register system git alias - ignore (to generate .gitignore using www.gitignore.io API)
+    git_config: name=alias.ignore value='!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi' scope=system
+  become: True
+  become_user: root
+
+- block:
+  - name: Configure local git user - name
+    git_config: name=user.name value='{{ git_username }}' scope=global
+  - name: Configure local git user - email
+    git_config: name=user.email value='{{ git_email }}' scope=global
+  become: False
