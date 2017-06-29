@@ -49,7 +49,6 @@ galaxy_info:
 dependencies:
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list.
-    - role: geerlingguy.repo-epel
-      become: True
-    - role: geerlingguy.repo-remi
-      become: True
+    - role: adipriyantobpn.repo-centos
+    - role: adipriyantobpn.repo-epel
+    - role: adipriyantobpn.repo-remi

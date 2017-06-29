@@ -1,15 +1,8 @@
 ---
 # tasks file for adipriyantobpn.common
-- name: include yum repository variable file
-  include_vars: "repo-{{ repo_location }}.yml"
-
-- include: repo-centos.yml
-- include: repo-epel.yml
-- include: repo-remi.yml
-
 - block:
   - name: Make sure cronie is installed as it is required by timezone module
-    yum: name=cronie state=present
+    yum: name=cronie state=present update_cache=yes
   - name: Configure timezone setting
     timezone: name=Asia/Jakarta
     notify: restart crond
@@ -22,7 +15,7 @@
     when: disable_firewall == false
 
   - name: Make sure libselinux-python is installed as it is required by selinux module
-    yum: name=libselinux-python state=present
+    yum: name=libselinux-python state=present update_cache=yes
   - name: Disable SELinux
     selinux: state=disabled
     when: selinux_state == "disabled"
@@ -37,7 +30,7 @@
     when: ansible_virtualization_type == "virtualbox"
 
   - name: Make sure basic packages are installed
-    yum: name={{ item }}
+    yum: name={{ item }} update_cache=yes
     with_items: "{{ basic_packages | list }}"
   become: True
   become_user: root
