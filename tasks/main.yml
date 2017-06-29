@@ -13,17 +13,29 @@
   - name: Configure timezone setting
     timezone: name=Asia/Jakarta
     notify: restart crond
-  - name: Configure Firewall
+
+  - name: Disable Firewall
     service: name=firewalld state=stopped enabled=no
     when: disable_firewall == true
+  - name: Enable Firewall
+    service: name=firewalld state=started enabled=yes
+    when: disable_firewall == false
+
   - name: Make sure libselinux-python is installed as it is required by selinux module
     yum: name=libselinux-python state=present
   - name: Disable SELinux
     selinux: state=disabled
-    when: disable_selinux == true
+    when: selinux_state == "disabled"
+    notify: reboot message
+  - name: Enable SELinux
+    selinux: state={{ selinux_state }} policy=targeted
+    when: selinux_state != "disabled"
+    notify: reboot message
+
   - name: Start VirtualBox Guest Additions service
     service: name=vboxadd-service state=started enabled=yes
     when: ansible_virtualization_type == "virtualbox"
+
   - name: Make sure basic packages are installed
     yum: name={{ item }}
     with_items: "{{ basic_packages | list }}"

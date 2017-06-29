@@ -5,3 +5,7 @@
   service:
     name: crond
     state: restarted
+
+- name: reboot message
+  debug:
+    msg: Please reboot server to make SELinux configuration changes can take effects
