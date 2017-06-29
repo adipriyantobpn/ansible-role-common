@@ -43,8 +43,9 @@ Dependencies
 ------------
 
 As EPEL and REMI repository is commonly used by many RHEL/CentOS, this role requires :
-  - [geerlingguy.repo-epel](https://galaxy.ansible.com/geerlingguy/repo-epel/)
-  - [geerlingguy.repo-remi](https://galaxy.ansible.com/geerlingguy/repo-remi/)
+  - adipriyantobpn.repo-centos
+  - adipriyantobpn.repo-epel
+  - adipriyantobpn.repo-remi
 
 Those required roles maintain their own role variables. Please read their documentations for more detailed explanations of how to use and supported role variables.
 
