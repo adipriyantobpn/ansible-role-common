@@ -1,0 +1,63 @@
+---
+- name: autostart SSH-agent and autoload private keys
+  blockinfile:
+    path: ~/.bashrc
+    mode: 0600
+    state: present
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      #
+      # Autostart SSH-agent and autoload all private keys in ~/.ssh directory
+      # Source:
+      #   https://gist.github.com/adipriyantobpn/87519ec6c9df8d1ca76aadfcd973e945
+      #
+      # How to use:
+      # - Place this scripts in ~/.bashrc
+      # - If ssh-agent is not filled by any private keys, passphrase prompts will show up for each private keys
+      #
+
+      # register ssh key
+      env=~/.ssh/agent.env
+
+      agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+
+      agent_start () {
+          (umask 077; ssh-agent >| "$env")
+          . "$env" >| /dev/null ; }
+
+      agent_load_env
+
+      # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+      agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+      if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+          agent_start
+          # this will load all private keys in ~/.ssh directory if agent not running
+          find ~/.ssh/ -type f -exec grep -l "PRIVATE" {} \; | xargs ssh-add &> /dev/null
+      elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+          # this will load all private keys in ~/.ssh directory if agent is not filled with any private key
+          find ~/.ssh/ -type f -exec grep -l "PRIVATE" {} \; | xargs ssh-add &> /dev/null
+      fi
+
+      unset env
+
+- name: make sure ~/.ssh/config is exist
+  file:
+    path: ~/.ssh/config
+    mode: 0600
+    state: touch
+
+- name: use dedicated private key only for certain host
+  blockinfile:
+    path: ~/.ssh/config
+    mode: 0600
+    state: present
+    marker: "# {mark} ANSIBLE MANAGED BLOCK"
+    block: |
+      IdentityFile {{ item.private_key_path }}
+
+      Host {{ item.host }}
+          IdentityFile {{ item.private_key_path }}
+      
+  with_items:
+  - { host: github, private_key_path: ~/.ssh/github_rsa }
