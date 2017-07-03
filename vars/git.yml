@@ -1,0 +1,37 @@
+---
+system_git_configs:
+  - section: core
+    config:
+      - name: eol
+        value: lf
+      - name: symlinks
+        value: true
+      - name: autocrlf
+        value: input
+      - name: editor
+        value: vim
+      - name: symlinks
+        value: true
+      - name: whitespace
+        value: 'blank-at-eol,blank-at-eof,space-before-tab,-indent-with-non-tab,-tab-in-indent,-cr-at-eol scope=system'
+  - section: color
+    config:
+      - name: ui
+        value: auto
+  - section: credential
+    config:
+      - name: helper
+        value: store
+  - section: alias
+    config:
+      - name: ignore
+        value: '!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi'
+
+
+user_git_configs:
+  - section: user
+    config:
+      - name: name
+        value: "{{ git_username }}"
+      - name: email
+        value: "{{ git_email }}"

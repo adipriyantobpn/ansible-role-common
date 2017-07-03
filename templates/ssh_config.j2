@@ -1,0 +1,8 @@
+{% for item in user_ssh_configs %}
+IdentityFile {{ item.private_key_path }}
+{% endfor %}
+
+{% for item in user_ssh_configs %}
+Host {{ item.host }}
+    IdentityFile {{ item.private_key_path }}
+{% endfor %}

@@ -9,3 +9,7 @@ selinux_state:              permissive  # available options: enforcing, permissi
 basic_packages:
   - vim
   - tree
+
+user_ssh_configs:
+  - host: github
+    private_key_path: ~/.ssh/github_rsa

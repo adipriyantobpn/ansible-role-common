@@ -1,5 +1,5 @@
 ---
-- name: autostart SSH-agent and autoload private keys
+- name: Autostart SSH-agent and autoload private keys
   blockinfile:
     path: ~/.bashrc
     mode: 0600
@@ -41,23 +41,10 @@
 
       unset env
 
-- name: make sure ~/.ssh/config is exist
-  file:
-    path: ~/.ssh/config
+- name: Use dedicated private key only for certain host
+  template:
+    src: ssh_config.j2
+    dest: ~/.ssh/config
     mode: 0600
-    state: touch
-
-- name: use dedicated private key only for certain host
-  blockinfile:
-    path: ~/.ssh/config
-    mode: 0600
-    state: present
-    marker: "# {mark} ANSIBLE MANAGED BLOCK"
-    block: |
-      IdentityFile {{ item.private_key_path }}
-
-      Host {{ item.host }}
-          IdentityFile {{ item.private_key_path }}
-      
-  with_items:
-  - { host: github, private_key_path: ~/.ssh/github_rsa }
+    force: yes
+    backup: yes
